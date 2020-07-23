@@ -1,4 +1,4 @@
-console.log('JavaScript client side file is loaded!')   // Logs show up in the browser developer tools > console
+console.log('JavaScript client side file is loaded')   // Logs show up in the browser developer tools > console
 
 // Select element from our html document (here the tag form) by using document object (DOM) and querySelector
 // We get back a js representation of that element and we can use that to manipulate the element or to do things when a user interacts with the element
