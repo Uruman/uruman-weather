@@ -20,7 +20,7 @@ weather_form.addEventListener('submit', (e) => {        // e stands for event
     // To make the http request from client-side js, we use the fetch-API, it is not js but a browser-based API, thus not accesible in node.js (backend)
     // Calling fetch in our client-side js is gonna kick off an asynchronous I/O operation like request in node.js, i.e. we don't have access to the data right away
     // With request() we had a callback as second argument, here instead we have then() with callback function
-    fetch('http://localhost:3000/weather?address=' + location).then((response) => {
+    fetch('/weather?address=' + location).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 message_one.textContent = data.error

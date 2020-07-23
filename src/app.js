@@ -1,13 +1,16 @@
 // Core modules
 const path = require('path')
 const geocode = require('./utils/geocode')
-const forcast = require('./utils/forecast')
+const forecast = require('./utils/forecast')
 
 // One time actions in terminal: 1)cd web-server 2)npm init -y 3)npm i express@4.16.4 4)To run the server: node src/app.js (not updating changes) or nodemon src/app.js (reflect changes immediately)
-const express = require('express')  // The express library exposes just a single function
-const app = express()               // We call the express function to create new express application object
 const hbs = require('hbs')          // For the partials (reusable hbs templates)
-const forecast = require('./utils/forecast')
+const express = require('express')  // The express library exposes just a single function
+
+const app = express()                       // We call the express function to create new express application object
+// Heroku provides us with a port value that we have to use when our app is running on heroku, a value that changes over time
+// Port is provided to our application via an environment variable which is a key value pair set at the OS level
+const port = process.env.PORT || 3000   // To access herocus environment and get the port. Using the logical js OR-operator with default fallback 3000 for our local machine
 
 // Tell express which dynamic templating engine (hbs - handlebars) we installed before (npm i hbs@4.0.1) by using set() with a setting key and value
 app.set('view engine', 'hbs')
@@ -74,18 +77,6 @@ app.get('/weather', (req, res) => {
     })
 })
 
-// app.get('/product', (req, res) => {
-//     if (!req.query.status) {
-//         return res.send({
-//             error: 'You must provide a search term'
-//         })
-//     }
-//     console.log(req.query.status)
-//     res.send({
-//         prodcuts: []
-//     })
-// })
-
 app.get('/help/*', (req, res) => {
     res.render('404', {
         title: '404 Error',
@@ -105,6 +96,6 @@ app.get('*', (req, res) => {               // With wildcard * match anything tha
 // Start the server up, listen on a specific port, the first argument, we use a common local developer environment port 3000
 // The second optional argument, callback function which runs when the server is up and running
 // The process of starting up a server is an asyncronous process
-app.listen(3000, () => {
-    console.log('Server is up on port 3000')
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
 })
